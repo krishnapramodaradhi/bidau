@@ -1,0 +1,13 @@
+name: bidau
+
+services:
+  bidding:
+    build:
+      context: ./bidding
+      dockerfile: ./Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 4
+    ports:
+      - "8080-8083:8443"
+    restart: always
