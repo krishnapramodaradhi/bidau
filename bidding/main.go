@@ -31,7 +31,7 @@ func main() {
 	})
 
 	log.Println("Listening on port", PORT)
-	log.Fatal(http.ListenAndServe(PORT, mux))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0%v", PORT), mux))
 }
 
 func truncate(num float64) float64 {

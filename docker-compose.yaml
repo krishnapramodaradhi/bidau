@@ -5,9 +5,27 @@ services:
     build:
       context: ./bidding
       dockerfile: ./Dockerfile
-    deploy:
-      mode: replicated
-      replicas: 4
     ports:
-      - "8080-8083:8443"
+      - "8080:8443"
+      # - "8081:8443"
+      # - "8082:8443"
+      # - "8083:8443"
     restart: always
+    networks:
+      - candle
+  auction:
+    build:
+      context: ./auction
+      dockerfile: ./Dockerfile
+    ports:
+      - "8084:8443"
+    restart: always
+    networks:
+      - candle
+
+networks:
+  candle:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.19.0.0/16"
