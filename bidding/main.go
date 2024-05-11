@@ -11,7 +11,7 @@ import (
 	"strconv"
 )
 
-const PORT = ":8443"
+const PORT = ":8080"
 
 type BiddingResponse struct {
 	AdId     string  `json:"adId"`
@@ -22,7 +22,6 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/buy/ad-slot", func(w http.ResponseWriter, r *http.Request) {
 		if rInt := random.Intn(10); rInt != 0 && rInt%4 == 0 {
-			log.Println(rInt)
 			w.WriteHeader(http.StatusNoContent)
 			return
 		}
@@ -31,7 +30,7 @@ func main() {
 	})
 
 	log.Println("Listening on port", PORT)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0%v", PORT), mux))
+	log.Fatal(http.ListenAndServe(PORT, mux))
 }
 
 func truncate(num float64) float64 {

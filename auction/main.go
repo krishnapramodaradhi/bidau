@@ -14,18 +14,10 @@ type HttpFuncHandler func(w http.ResponseWriter, r *http.Request) error
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/bid/{adPlacementId}", makeHttp(HeaderBidHandler))
+	mux.HandleFunc("/bid/{adPlacementId}", HeaderBidHandler)
 
 	log.Println("Listening on port", PORT)
 	log.Fatal(http.ListenAndServe(PORT, mux))
-}
-
-func makeHttp(f HttpFuncHandler) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		if err := f(w, r); err != nil {
-			log.Println(err)
-		}
-	}
 }
 
 func generateRandomId() string {
